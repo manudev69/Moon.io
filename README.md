@@ -1,2 +1,0 @@
-# Moon.io
-moon project
