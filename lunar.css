@@ -1,0 +1,295 @@
+:root {
+  --primary-bg: radial-gradient(circle at top, #1a1a40, #000);
+  --primary-text: #fff;
+  --header-gradient: linear-gradient(90deg, #ff3a8c, #ff7eb3, #c5a3ff, #a2cfff);
+  --header-border: rgba(255,255,255,0.2);
+  --header-shadow: rgba(0,0,0,0.4);
+  --msg-user-bg: linear-gradient(145deg, #3a86ff, #5fa3ff);
+  --msg-user-shadow: 0 0 10px #3a86ff, 0 0 20px #3a86ff77;
+  --msg-assistant-bg: linear-gradient(145deg, #ff3a8c, #ff7eb3);
+  --msg-assistant-shadow: 0 0 10px #ff3a8c, 0 0 20px #ff3a8c77;
+  --input-bg: rgba(255,255,255,0.05);
+  --input-border: rgba(255,255,255,0.2);
+  --input-text: white;
+  --input-placeholder: rgba(255, 255, 255, 0.6);
+  --send-btn-bg: #c5a3ff;
+  --send-btn-hover: #d4baff;
+  --thinking-bg: rgba(255, 58, 140, 0.3);
+  --thinking-text: #ffb3d4;
+  --modal-bg: #1a1a40;
+  --modal-border: #c5a3ff;
+  --modal-text: #ff7eb3;
+  --star-opacity: 0.3;
+}
+
+.light-mode {
+  --primary-bg: radial-gradient(circle at top, #ffffff, #f9f9f9);
+  --primary-text: #333;
+  --header-gradient: linear-gradient(90deg, #ff7eb3, #ffa7c4, #d4baff, #a2cfff);
+  --header-border: rgba(0,0,0,0.1);
+  --header-shadow: rgba(0,0,0,0.1);
+  --msg-user-bg: linear-gradient(145deg, #3a86ff, #5fa3ff);
+  --msg-user-shadow: 0 0 10px #3a86ff77, 0 0 15px #3a86ff44;
+  --msg-assistant-bg: linear-gradient(145deg, #ff7eb3, #ffa7c4);
+  --msg-assistant-shadow: 0 0 10px #ff7eb377, 0 0 15px #ff7eb344;
+  --input-bg: rgba(255,255,255,0.7);
+  --input-border: rgba(0,0,0,0.1);
+  --input-text: #333;
+  --input-placeholder: rgba(0, 0, 0, 0.6);
+  --send-btn-bg: #a2cfff;
+  --send-btn-hover: #b5d9ff;
+  --thinking-bg: rgba(255, 126, 179, 0.2);
+  --thinking-text: #ff7eb3;
+  --modal-bg: #f0f0f5;
+  --modal-border: #a2cfff;
+  --modal-text: #ff7eb3;
+  --star-opacity: 0.1;
+}
+
+body {
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  background: var(--primary-bg);
+  color: var(--primary-text);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="black" opacity="0.5"/></svg>');
+  background-size: 300px 300px;
+  opacity: var(--star-opacity);
+  pointer-events: none;
+}
+header {
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.6rem;
+  background: var(--header-gradient);
+  background-size: 300% 300%;
+  animation: gradientFlow 8s ease infinite;
+  border-bottom: 1px solid var(--header-border);
+  letter-spacing: 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 15px var(--header-shadow);
+  z-index: 2;
+  position: relative;
+}
+header span {
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(255,255,255,0.5);
+  display: flex;
+  align-items: center;
+}
+header span::before {
+  content: '☀️';
+  margin-right: 10px;
+  font-size: 1.8rem;
+}
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+header button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.7rem;
+  background: #ff3a8c;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 0 10px #ff3a8caa;
+  transition: all 0.3s;
+}
+header button:hover {
+  background: #ff7eb3;
+  transform: scale(1.05);
+}
+#themeToggle {
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  margin: 0;
+}
+#chat {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
+}
+.msg {
+  max-width: 70%;
+  padding: 0.9rem 1.2rem;
+  border-radius: 1.2rem;
+  line-height: 1.5;
+  word-wrap: break-word;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  animation: fadeIn 0.6s ease;
+  position: relative;
+}
+.user {
+  background: var(--msg-user-bg);
+  align-self: flex-end;
+  box-shadow: var(--msg-user-shadow);
+  border-bottom-right-radius: 5px;
+  color: white;
+}
+.assistant {
+  background: var(--msg-assistant-bg);
+  align-self: flex-start;
+  box-shadow: var(--msg-assistant-shadow);
+  animation: pulse 2s infinite;
+  border-bottom-left-radius: 5px;
+  color: white;
+}
+.thinking {
+  align-self: flex-start;
+  background: var(--thinking-bg);
+  color: var(--thinking-text);
+  font-style: italic;
+}
+#inputBox {
+  display: flex;
+  padding: 0.7rem;
+  background: var(--input-bg);
+  border-top: 1px solid var(--input-border);
+  z-index: 2;
+  position: relative;
+}
+#input {
+  flex: 1;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 1rem;
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--input-text);
+}
+#input::placeholder {
+  color: var(--input-placeholder);
+}
+button.send {
+  margin-left: 0.5rem;
+  padding: 0.8rem 1.4rem;
+  border: none;
+  border-radius: 1rem;
+  background: var(--send-btn-bg);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+button.send:hover { background: var(--send-btn-hover); }
+button.send:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+
+#apiKeyModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+#apiKeyForm {
+  background: var(--modal-bg);
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 0 20px rgba(255, 58, 140, 0.5);
+}
+#apiKeyForm h3 {
+  margin-top: 0;
+  text-align: center;
+  color: var(--modal-text);
+}
+#apiKeyForm input {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+  border: 1px solid var(--modal-border);
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--primary-text);
+}
+#apiKeyForm button {
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--send-btn-bg);
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+.heart {
+  display: inline-block;
+  color: #ff3a8c;
+  text-shadow: 0 0 5px #ff3a8c;
+  animation: pulse 1.5s infinite;
+}
+.typing-indicator {
+  display: inline-flex;
+  align-items: center;
+  color: #ffb3d4;
+}
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #ff7eb3;
+  margin: 0 2px;
+  animation: typingAnimation 1.4s infinite ease-in-out;
+}
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 10px #ff3a8c, 0 0 20px #ff3a8c77; }
+  50% { box-shadow: 0 0 20px #ff3a8c, 0 0 40px #ff3a8caa; }
+}
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes typingAnimation {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-5px); }
+}

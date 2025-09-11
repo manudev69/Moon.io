@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Moon.ia 🌙✨ - Moon.ia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="lunar.css">
+</head>
+<body>
+  <header> 
+    <span>Moon.IA 🌙</span>
+    <div class="header-controls">
+      <button id="themeToggle">☀️</button>
+      <button id="apiKeyBtn">API Key</button>
+      <button id="newChatBtn">New Chat</button>
+    </div>
+  </header>
+
+  <div id="chat"></div>
+
+  <div id="inputBox">
+    <input id="input" type="text" placeholder="Talk to me here... 🌸">
+    <button class="send" id="sendBtn">Send</button>
+  </div>
+
+  <div id="apiKeyModal">
+    <div id="apiKeyForm">
+      <h3>Enter Your OpenAI API Key</h3>
+      <input type="password" id="apiKeyInput" placeholder="sk-...">
+      <button id="saveApiKeyBtn">Save API Key</button>
+      <p style="font-size: 0.8rem; margin-top: 1rem;">
+        Your API key is stored only in your browser and never sent to any server except yours.
+      </p>
+    </div>
+  </div>
+
+  <script src="moon.js"></script>
+</body>
+</html>
