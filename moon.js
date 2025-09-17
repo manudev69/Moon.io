@@ -202,10 +202,10 @@ function newChat() {
   }
 }
 
-// Save chat history to localStorage
-function saveHistory() {
-  localStorage.setItem("chatHistory", JSON.stringify(messages));
-}
+
+
+
+
 
 // Initialize the app when the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", init);
